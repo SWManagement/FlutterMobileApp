@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
+import 'package:pametno_z_odpadki/Modal.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
   }
 }
 class HomePage extends StatelessWidget{
+  Modal modal = new Modal();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
@@ -45,9 +48,19 @@ class HomePage extends StatelessWidget{
         ],
       )
     ),
+    floatingActionButton: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new FloatingActionButton(
+        onPressed: () => modal.mainBottomSheet(context),
+        child: new Icon(Icons.restore_from_trash), 
+      ),
+    ),
     );
   }
 
+
+
+// onChoice za nastavitve na vrhu
   void onChoiceAction(String choice){
     if (choice == Constants.Regija){
       print("Regija"); // -> funkcija za izbiro regije  TODO
