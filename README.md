@@ -1,6 +1,6 @@
 # pametno_z_odpadki
 
-A new Flutter project.
+A new Flutter project. Migration from Android Studio in language Java to Flutter.
 
 ## Getting Started
 
