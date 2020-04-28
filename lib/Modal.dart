@@ -29,7 +29,7 @@ class Modal{
   }
 
   _vpisi(){
-    print("Vpisi");
+    print("vpisi");
   }
 
   _skeniraj(){
