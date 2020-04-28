@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
 }
 class HomePage extends StatelessWidget{
   final Modal modal = new Modal();
-  final double _buttonW = 300.0;
-  final double _buttonH = 75.0;
-
+  final double _buttonW = 250.0;
+  final double _buttonH = 65.0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,39 +42,40 @@ class HomePage extends StatelessWidget{
     ),
     body: new Center(
       child: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(
-            "Body"
-          ),
           SizedBox(height: 20),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            height:  MediaQuery.of(context).size.height * 0.4,
+            child: Image.asset("assets/images/logo.png"),
+            ),
           ButtonTheme(
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){},
+              onPressed: (){}, // TODO -> navodila za uporabo
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: const Text("Navodila za uporabo",
-                style: TextStyle(fontSize: 25,
+                style: TextStyle(fontSize: 18,
                 color: Colors.white ),
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           ButtonTheme(
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){},
+              onPressed: (){}, // TODO -> O aplikaciji
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: const Text("O aplikaciji",
-                style: TextStyle(fontSize: 25,
+                style: TextStyle(fontSize: 18,
                 color: Colors.white ),
                 ),
               ),
@@ -97,13 +97,15 @@ class HomePage extends StatelessWidget{
     );
   }
 
+  
+
 // onChoice za nastavitve na vrhu
   void onChoiceAction(String choice){
     if (choice == Constants.Regija){
-      print("Regija"); // -> funkcija za izbiro regije  TODO
+      print("Regija"); //   TODO -> funkcija za izbiro regije
     }
     else{
-      print("Tehnicna pomoc"); // -> funkcija za Tehnično pomoč TODO
+      print("Tehnicna pomoc"); //  TODO -> funkcija za Tehnično pomoč
     }
   }
 }

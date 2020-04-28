@@ -29,10 +29,10 @@ class Modal{
   }
 
   _vpisi(){
-    print("vpisi");
+    print("vpisi"); // TODO -> vpisi in locuj
   }
 
   _skeniraj(){
-    print("Skeniraj");
+    print("Skeniraj"); // TODO -> Skeniraj in locuj
   }
 }
