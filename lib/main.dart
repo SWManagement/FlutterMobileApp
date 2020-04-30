@@ -28,7 +28,6 @@ class HomePage extends StatelessWidget{
       title: Text("Pametno z odpadki"),
       actions: <Widget>[
         PopupMenuButton<String>(
-          onSelected: onChoiceAction,
           itemBuilder: (BuildContext context){
             return Constants.choices.map((String choice){
               return PopupMenuItem<String> (
@@ -54,7 +53,12 @@ class HomePage extends StatelessWidget{
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){}, // TODO -> navodila za uporabo
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:
+                   (context) => Navodila() ));
+              }, // TODO -> navodila za uporabo
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -70,7 +74,12 @@ class HomePage extends StatelessWidget{
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){}, // TODO -> O aplikaciji
+              onPressed:(){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:
+                   (context) => oAplikaciji() ));
+              } , 
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -97,16 +106,68 @@ class HomePage extends StatelessWidget{
     );
   }
 
-  
+
 
 // onChoice za nastavitve na vrhu
   void onChoiceAction(String choice){
     if (choice == Constants.Regija){
-      print("Regija"); //   TODO -> funkcija za izbiro regije
+      //navigate to izbira regije
+
     }
     else{
       print("Tehnicna pomoc"); //  TODO -> funkcija za Tehnično pomoč
     }
+  }
+
+}
+
+
+
+class izbiraRegije extends StatefulWidget {
+  @override
+  _izbiraRegijeState createState() => _izbiraRegijeState();
+}
+
+class _izbiraRegijeState extends State<izbiraRegije> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Izbira regije") ,
+        ),
+        body: Column(
+          children: <Widget>[
+            Text("izberi")
+          ],),  
+    );
+  }
+}
+
+class oAplikaciji extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("O aplikaciji"),
+      ),
+      body: Column(children: <Widget>[
+        Text("o app")  // TODO -> O aplikaciji
+      ],),
+    );
+  }
+}
+
+
+class Navodila extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(title: Text("Navodila za uporabo"),
+      ),
+      body: Column(children: <Widget>[
+        Text("o app")  // TODO -> O aplikaciji
+      ],),
+    );
   }
 }
 
