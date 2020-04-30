@@ -4,8 +4,8 @@ class Constants{
   static const String TehnicnaPomoc = "Kontaktiraj tehnično pomoč";
   // Regije
   static const String Osrednjeslovenska = "Osrednjeslovenska";
-  static const String Dolenska = "Dolenska";
-  static const String Gorenska = "Gorenska";
+  static const String Dolenska = "Dolenjska";
+  static const String Gorenska = "Gorenjska";
   static const String Stajerska = "Štajerska";
   static const String Primorska = "Primorska";
 
