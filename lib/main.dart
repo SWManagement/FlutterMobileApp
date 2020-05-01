@@ -1,5 +1,5 @@
 
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
 import 'package:pametno_z_odpadki/Modal.dart';
@@ -120,6 +120,21 @@ class HomePage extends StatelessWidget{
 }
 
 
+Future<String> _getRegijaFromSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String regija = prefs.getString("izbranaRegija");
+    if (regija == null){
+      return Constants.regije[0];
+    }else{
+      return regija;
+    }
+}
+
+Future<void> _spremembaRegije(String regija) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("izbranaRegija", regija);
+}
+
 
 class izbiraRegije extends StatefulWidget {
   @override
@@ -127,93 +142,24 @@ class izbiraRegije extends StatefulWidget {
 }
 
 
-
-              // Padding(
-              //   padding: const EdgeInsets.all(12.0),
-              //   child: Text(
-              //     "Ločujete v:  $_izbranaRegija regija",
-              //     textAlign: TextAlign.center,
-              //     overflow: TextOverflow.ellipsis,
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 20
-              //     ),
-              //   ),
-              // ),
-
-
-        //               Center(
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.start,
-        //     children: <Widget>[
-        //       RadioListTile(
-        //         title: Text("Osrednjeslovenska"),
-        //         value: Constants.regije[0],
-        //         groupValue: group,
-        //         activeColor: Colors.greenAccent,
-        //         onChanged: (T){
-        //           print(T);
-        //           setState(() {
-        //             _izbranaRegija = T;
-        //           });
-        //         },
-        //       ),
-        //         RadioListTile(
-        //         title: Text("Dolenjska"),
-        //         value: Constants.regije[1],
-        //         groupValue: group,
-        //         activeColor: Colors.greenAccent,
-        //         onChanged: (T){
-        //           print(T);
-        //           setState(() {
-        //             _izbranaRegija = T;
-        //           });
-        //         },
-        //       ),
-        //         RadioListTile(
-        //         title: Text("Gorenjska"),
-        //         value: Constants.regije[2],
-        //         groupValue: group,
-        //         activeColor: Colors.greenAccent,
-        //         onChanged: (T){
-        //           print(T);
-        //           setState(() {
-        //             _izbranaRegija = T;
-        //           });
-        //         },
-        //       ),
-        //         RadioListTile(
-        //         title: Text("Štajerska"),
-        //         value: Constants.regije[3],
-        //         groupValue: group,
-        //         activeColor: Colors.greenAccent,
-        //         onChanged: (T){
-        //           print(T);
-        //           setState(() {
-        //             _izbranaRegija = T;
-        //           });
-        //         },
-        //       ),
-        //         RadioListTile(
-        //         title: Text("Primorska"),
-        //         value: Constants.regije[4],
-        //         groupValue: group,
-        //         activeColor: Colors.greenAccent,
-        //         onChanged: (T){
-        //           print(T);
-        //           setState(() {
-        //             _izbranaRegija = T;
-        //           });
-        //         },
-        //       )
-        //     ],
-        //   ),
-        // )
-
 class _izbiraRegijeState extends State<izbiraRegije> {
   int _group = 1;
-  String _izbranaRegija = Constants.regije[0];
-  // TODO -> save to shared preferences + da se označi gumbek
+  String _izbranaRegija = "";
+
+  @override
+  void initState() { 
+    super.initState();
+    _displayRegija();
+  }
+
+  Future<void> _displayRegija() async {
+    String regija = await _getRegijaFromSharedPrefs();
+    setState(() {
+      _izbranaRegija = regija;
+   });
+  }
+
+  // TODO -> da se označi gumbek
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -222,18 +168,17 @@ class _izbiraRegijeState extends State<izbiraRegije> {
         ),
         body: 
         ListView(
-
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(12.0),
           children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-                "Ločujete v:  $_izbranaRegija regija",
+                "Izbira: $_izbranaRegija",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20
+                fontSize: 25
                   ),
                 ),
               ),
@@ -243,9 +188,9 @@ class _izbiraRegijeState extends State<izbiraRegije> {
                 groupValue: _group,
                 activeColor: Colors.greenAccent,
                 onChanged: (T){
-                  print(T);
                   setState(() {
-                    _izbranaRegija = T;
+                    _spremembaRegije(T);
+                    _displayRegija();
                   });
                 },
               ),
@@ -255,9 +200,9 @@ class _izbiraRegijeState extends State<izbiraRegije> {
                 groupValue: _group,
                 activeColor: Colors.greenAccent,
                 onChanged: (T){
-                  print(T);
                   setState(() {
-                    _izbranaRegija = T;
+                    _spremembaRegije(T);
+                    _displayRegija();
                   });
                 },
               ),
@@ -267,9 +212,9 @@ class _izbiraRegijeState extends State<izbiraRegije> {
                 groupValue: _group,
                 activeColor: Colors.greenAccent,
                 onChanged: (T){
-                  print(T);
                   setState(() {
-                    _izbranaRegija = T;
+                    _spremembaRegije(T);
+                    _displayRegija();
                   });
                 },
               ),
@@ -279,9 +224,9 @@ class _izbiraRegijeState extends State<izbiraRegije> {
                 groupValue: _group,
                 activeColor: Colors.greenAccent,
                 onChanged: (T){
-                  print(T);
                   setState(() {
-                    _izbranaRegija = T;
+                    _spremembaRegije(T);
+                    _displayRegija();
                   });
                 },
               ),
@@ -291,9 +236,9 @@ class _izbiraRegijeState extends State<izbiraRegije> {
                 groupValue: _group,
                 activeColor: Colors.greenAccent,
                 onChanged: (T){
-                  print(T);
                   setState(() {
-                    _izbranaRegija = T;
+                    _spremembaRegije(T);
+                    _displayRegija();
                   });
                 },
               )
