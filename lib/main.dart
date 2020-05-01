@@ -1,3 +1,5 @@
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
 import 'package:pametno_z_odpadki/Modal.dart';
@@ -28,7 +30,16 @@ class HomePage extends StatelessWidget{
       title: Text("Pametno z odpadki"),
       actions: <Widget>[
         PopupMenuButton<String>(
-          onSelected: onChoiceAction,
+          onSelected: (result){
+            if (result == Constants.Regija){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => izbiraRegije()));
+            }else{
+              //TODO -> tehnična pomoč
+              print("Izbrali ste tehnično pomoč");
+            }
+          },
           itemBuilder: (BuildContext context){
             return Constants.choices.map((String choice){
               return PopupMenuItem<String> (
@@ -54,7 +65,12 @@ class HomePage extends StatelessWidget{
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){}, // TODO -> navodila za uporabo
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:
+                   (context) => Navodila() ));
+              }, 
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -70,7 +86,12 @@ class HomePage extends StatelessWidget{
             minWidth: _buttonW,
             height: _buttonH,
             child: RaisedButton(
-              onPressed: (){}, // TODO -> O aplikaciji
+              onPressed:(){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:
+                   (context) => oAplikaciji() ));
+              } , 
               color: Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -96,17 +117,165 @@ class HomePage extends StatelessWidget{
       ),
     );
   }
+}
 
-  
 
-// onChoice za nastavitve na vrhu
-  void onChoiceAction(String choice){
-    if (choice == Constants.Regija){
-      print("Regija"); //   TODO -> funkcija za izbiro regije
+Future<String> _getRegijaFromSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String regija = prefs.getString("izbranaRegija");
+    if (regija == null){
+      return Constants.regije[0];
+    }else{
+      return regija;
     }
-    else{
-      print("Tehnicna pomoc"); //  TODO -> funkcija za Tehnično pomoč
-    }
+}
+
+Future<void> _spremembaRegije(String regija) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("izbranaRegija", regija);
+}
+
+
+class izbiraRegije extends StatefulWidget {
+  @override
+  _izbiraRegijeState createState() => _izbiraRegijeState();
+}
+
+
+class _izbiraRegijeState extends State<izbiraRegije> {
+  int _group = 1;
+  String _izbranaRegija = "";
+
+  @override
+  void initState() { 
+    super.initState();
+    _displayRegija();
+  }
+
+  Future<void> _displayRegija() async {
+    String regija = await _getRegijaFromSharedPrefs();
+    setState(() {
+      _izbranaRegija = regija;
+   });
+  }
+
+  // TODO -> da se označi gumbek
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Izbira regije") ,
+        ),
+        body: 
+        ListView(
+          padding: EdgeInsets.all(12.0),
+          children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+                "Izbira: $_izbranaRegija",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25
+                  ),
+                ),
+              ),
+            RadioListTile(
+                title: Text("Osrednjeslovenska"),
+                value: Constants.regije[0],
+                groupValue: _group,
+                activeColor: Colors.greenAccent,
+                onChanged: (T){
+                  setState(() {
+                    _spremembaRegije(T);
+                    _displayRegija();
+                  });
+                },
+              ),
+                RadioListTile(
+                title: Text("Dolenjska"),
+                value: Constants.regije[1],
+                groupValue: _group,
+                activeColor: Colors.greenAccent,
+                onChanged: (T){
+                  setState(() {
+                    _spremembaRegije(T);
+                    _displayRegija();
+                  });
+                },
+              ),
+                RadioListTile(
+                title: Text("Gorenjska"),
+                value: Constants.regije[2],
+                groupValue: _group,
+                activeColor: Colors.greenAccent,
+                onChanged: (T){
+                  setState(() {
+                    _spremembaRegije(T);
+                    _displayRegija();
+                  });
+                },
+              ),
+                RadioListTile(
+                title: Text("Štajerska"),
+                value: Constants.regije[3],
+                groupValue: _group,
+                activeColor: Colors.greenAccent,
+                onChanged: (T){
+                  setState(() {
+                    _spremembaRegije(T);
+                    _displayRegija();
+                  });
+                },
+              ),
+                RadioListTile(
+                title: Text("Primorska"),
+                value: Constants.regije[4],
+                groupValue: _group,
+                activeColor: Colors.greenAccent,
+                onChanged: (T){
+                  setState(() {
+                    _spremembaRegije(T);
+                    _displayRegija();
+                  });
+                },
+              )
+          ],
+        )
+    );
+  }
+}
+
+
+
+
+class oAplikaciji extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("O aplikaciji"),
+      ),
+      body: Column(children: <Widget>[
+        Text("o app")  // TODO -> O aplikaciji
+      ],),
+    );
+  }
+}
+
+
+class Navodila extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(title: Text("Navodila za uporabo"),
+      ),
+      body: Column(children: <Widget>[
+        Text("Navodila")  // TODO -> navodila za uporabo
+      ],),
+    );
   }
 }
 
