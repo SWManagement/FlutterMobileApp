@@ -42,7 +42,7 @@ class _VpisiLocujState extends State<VpisiLocuj> {
                     decoration: InputDecoration(hintText: "Vpiši ime izdelka ali odpadka."),
                     validator: (value){
                       if (value.isEmpty){
-                        return "Prosim vnesite izdelek";
+                        return "Prosim izpolnite polje.";
                       }else{
                         return null;
                       }
@@ -72,6 +72,21 @@ class _VpisiLocujState extends State<VpisiLocuj> {
           ),
         ),
         ),
+      bottomNavigationBar:BottomNavigationBar(
+        onTap: (result){
+          
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.create),
+            title: Text("Vpiši")
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_enhance),
+            title: Text("Skeniraj")
+          )
+        ]
+      )
     );
   }
 }
