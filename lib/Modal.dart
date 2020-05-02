@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:pametno_z_odpadki/SkenirajLocuj.dart';
+import 'package:pametno_z_odpadki/VpisiLocuj.dart';
 
 class Modal{
   mainBottomSheet(BuildContext context){
@@ -22,17 +24,25 @@ class Modal{
       leading: Icon(icon),
       title: Text(name),
       onTap: (){
-        Navigator.pop(context);
-        action();
+        String where = action();
+        if (where == "vpisi"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => VpisiLocuj()));
+        } else {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SkenirajLocuj()));
+        }
       },
     );
   }
 
   _vpisi(){
-    print("vpisi"); // TODO -> vpisi in locuj
+    return "vpisi"; // TODO -> vpisi in locuj
   }
 
   _skeniraj(){
-    print("Skeniraj"); // TODO -> Skeniraj in locuj
+    return "skeniraj"; // TODO -> Skeniraj in locuj
   }
 }
