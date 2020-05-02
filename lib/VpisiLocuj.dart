@@ -39,7 +39,14 @@ class _VpisiLocujState extends State<VpisiLocuj> {
                     child: TextFormField(
                     cursorColor:Colors.lightGreen,
                     textAlign: TextAlign.center,
-                    decoration: InputDecoration(hintText: "Vpiši ime izdelka ali odpadka.") ,
+                    decoration: InputDecoration(hintText: "Vpiši ime izdelka ali odpadka."),
+                    validator: (value){
+                      if (value.isEmpty){
+                        return "Prosim vnesite izdelek";
+                      }else{
+                        return null;
+                      }
+                    },
                      ),
                   ),
                 Padding(
