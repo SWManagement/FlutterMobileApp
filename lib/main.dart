@@ -124,8 +124,10 @@ Future<String> _getRegijaFromSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String regija = prefs.getString("izbranaRegija");
     if (regija == null){
+      Constants.constRegija = Constants.regije[0];
       return Constants.regije[0];
     }else{
+      Constants.constRegija = regija;
       return regija;
     }
 }
@@ -133,6 +135,7 @@ Future<String> _getRegijaFromSharedPrefs() async {
 Future<void> _spremembaRegije(String regija) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("izbranaRegija", regija);
+    Constants.constRegija = regija;
 }
 
 

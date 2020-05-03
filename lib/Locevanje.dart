@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pametno_z_odpadki/Constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 final _formKey = GlobalKey<FormState>();
@@ -24,12 +26,12 @@ class _Locevanje extends State<Locevanje> {
     Text("skeniraj")
   ];
 
-
   void _onItemTapped(int index){
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +58,22 @@ class _Locevanje extends State<Locevanje> {
   }
 }
 
-class Vpisi extends StatelessWidget {
+class Vpisi extends StatefulWidget {
   const Vpisi({
     Key key,
   }) : super(key: key);
+
+  @override
+  _VpisiState createState() => _VpisiState();
+}
+
+class _VpisiState extends State<Vpisi> {
+  String _izbranaRegija = "";
+  @override
+  void initState() {
+    super.initState();
+    _izbranaRegija = Constants.constRegija;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +86,17 @@ class Vpisi extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            "Trenutno ločuješ v $_izbranaRegija regija",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black
+                            ),
+                            ),
+                        ),
                         Text("Kam spada?",
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -122,7 +147,6 @@ class Vpisi extends StatelessWidget {
         );
   }
 }
-
 
 
 

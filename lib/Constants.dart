@@ -8,6 +8,8 @@ class Constants{
   static const String Gorenska = "Gorenjska";
   static const String Stajerska = "Štajerska";
   static const String Primorska = "Primorska";
+  // Izbrana regija
+  static String constRegija = regije[0];
 
   static const List<String> regije = <String>[
     Osrednjeslovenska,
