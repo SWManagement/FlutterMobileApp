@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:pametno_z_odpadki/SkenirajLocuj.dart';
-import 'package:pametno_z_odpadki/VpisiLocuj.dart';
+import 'package:pametno_z_odpadki/Locevanje.dart';
 
 class Modal{
   mainBottomSheet(BuildContext context){
@@ -28,11 +27,11 @@ class Modal{
         if (where == "vpisi"){
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => VpisiLocuj()));
+          MaterialPageRoute(builder: (context) => Locevanje(0))); // Vpisovanje
         } else {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SkenirajLocuj()));
+          MaterialPageRoute(builder: (context) => Locevanje(1))); // Skeniranje 
         }
       },
     );
