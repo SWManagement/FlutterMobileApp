@@ -104,6 +104,9 @@ class Vpisi extends StatelessWidget {
                             child: RaisedButton(
                             onPressed: (){
                             if(_formKey.currentState.validate()){
+                              Scaffold
+                              .of(context)
+                              .showSnackBar(SnackBar(content: Text("Iščem zabojnik!")));
                               // TODO -> Process data 
                             }
                           },
