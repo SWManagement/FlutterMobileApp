@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:pametno_z_odpadki/Locevanje.dart';
 
 class Modal{
   mainBottomSheet(BuildContext context){
@@ -22,17 +23,25 @@ class Modal{
       leading: Icon(icon),
       title: Text(name),
       onTap: (){
-        Navigator.pop(context);
-        action();
+        String where = action();
+        if (where == "vpisi"){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Locevanje(0))); // Vpisovanje
+        } else {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Locevanje(1))); // Skeniranje 
+        }
       },
     );
   }
 
   _vpisi(){
-    print("vpisi"); // TODO -> vpisi in locuj
+    return "vpisi"; // TODO -> vpisi in locuj
   }
 
   _skeniraj(){
-    print("Skeniraj"); // TODO -> Skeniraj in locuj
+    return "skeniraj"; // TODO -> Skeniraj in locuj
   }
 }

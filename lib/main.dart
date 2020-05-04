@@ -1,4 +1,6 @@
 
+import 'package:pametno_z_odpadki/AppInfo.dart';
+import 'package:pametno_z_odpadki/Navodila.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
@@ -90,7 +92,7 @@ class HomePage extends StatelessWidget{
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder:
-                   (context) => oAplikaciji() ));
+                   (context) => AppInfo() ));
               } , 
               color: Colors.green,
               child: Padding(
@@ -124,8 +126,10 @@ Future<String> _getRegijaFromSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String regija = prefs.getString("izbranaRegija");
     if (regija == null){
+      Constants.constRegija = Constants.regije[0];
       return Constants.regije[0];
     }else{
+      Constants.constRegija = regija;
       return regija;
     }
 }
@@ -133,6 +137,7 @@ Future<String> _getRegijaFromSharedPrefs() async {
 Future<void> _spremembaRegije(String regija) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("izbranaRegija", regija);
+    Constants.constRegija = regija;
 }
 
 
@@ -249,34 +254,5 @@ class _izbiraRegijeState extends State<izbiraRegije> {
 }
 
 
-
-
-class oAplikaciji extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("O aplikaciji"),
-      ),
-      body: Column(children: <Widget>[
-        Text("o app")  // TODO -> O aplikaciji
-      ],),
-    );
-  }
-}
-
-
-class Navodila extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: Text("Navodila za uporabo"),
-      ),
-      body: Column(children: <Widget>[
-        Text("Navodila")  // TODO -> navodila za uporabo
-      ],),
-    );
-  }
-}
 
 
