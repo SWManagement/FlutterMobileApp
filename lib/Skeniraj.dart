@@ -1,5 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:pametno_z_odpadki/Constants.dart';
 
 class Skeniraj extends StatefulWidget {
     const Skeniraj({
@@ -11,6 +12,7 @@ class Skeniraj extends StatefulWidget {
 
 class _SkenirajState extends State<Skeniraj> {
   String _scanBarcode = "Skeniraj izdelek in tu se bo prikazala koda!";
+  Constants constants = new Constants();
 
   @override
   void initState() { 
@@ -56,8 +58,8 @@ class _SkenirajState extends State<Skeniraj> {
       Padding(
         padding: const EdgeInsets.symmetric(vertical:10.0),
         child: ButtonTheme(
-          minWidth: 265.0,
-          height: 75.0,
+          minWidth: constants.getButtonWidth(context),
+          height: constants.getButtonHeight(),
           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
           child: RaisedButton(
           onPressed: () => main(),
@@ -68,8 +70,8 @@ class _SkenirajState extends State<Skeniraj> {
       ),
       Center(child:
       ButtonTheme(
-        minWidth: 265.0,
-        height: 75.0,
+        minWidth: constants.getButtonWidth(context),
+        height: constants.getButtonHeight(),
         shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
         child: RaisedButton(
         onPressed: () => print(_scanBarcode),

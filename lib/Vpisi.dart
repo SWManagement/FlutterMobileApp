@@ -13,6 +13,7 @@ class Vpisi extends StatefulWidget {
 }
 
 class _VpisiState extends State<Vpisi> {
+  Constants constants = new Constants();
   String _izbranaRegija = "";
   @override
   void initState() {
@@ -29,7 +30,6 @@ class _VpisiState extends State<Vpisi> {
                     child:  Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           Text("Kam spada?",
@@ -58,8 +58,8 @@ class _VpisiState extends State<Vpisi> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:25.0),
                           child: new ButtonTheme(
-                              minWidth: 265.0,
-                              height: 75.0,
+                              minWidth: constants.getButtonWidth(context),
+                              height: constants.getButtonHeight(),
                               shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
                               child: RaisedButton(
                               onPressed: (){
