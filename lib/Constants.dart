@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Constants{
   // Nastavitve
   static const String Regija = "Izbira Regije";
@@ -10,6 +12,15 @@ class Constants{
   static const String Primorska = "Primorska";
   // Izbrana regija
   static String constRegija = regije[0];
+
+  // Button W & H
+
+  double getButtonWidth(context){
+    return MediaQuery.of(context).size.width * 0.7;
+  }
+  double getButtonHeight(){
+    return 65.0;
+  }
 
   static const List<String> regije = <String>[
     Osrednjeslovenska,

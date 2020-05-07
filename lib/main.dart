@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
 }
 class HomePage extends StatelessWidget{
   final Modal modal = new Modal();
+  final Constants constants = new Constants();
   final double _buttonW = 250.0;
   final double _buttonH = 65.0;
 
@@ -64,8 +65,9 @@ class HomePage extends StatelessWidget{
             child: Image.asset("assets/images/logo.png"),
             ),
           ButtonTheme(
-            minWidth: _buttonW,
-            height: _buttonH,
+            minWidth: constants.getButtonWidth(context),
+            height: constants.getButtonHeight(),
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
             child: RaisedButton(
               onPressed: (){
                 Navigator.push(
@@ -85,8 +87,9 @@ class HomePage extends StatelessWidget{
           ),
           SizedBox(height: 10),
           ButtonTheme(
-            minWidth: _buttonW,
-            height: _buttonH,
+            minWidth: constants.getButtonWidth(context),
+            height: constants.getButtonHeight(),
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
             child: RaisedButton(
               onPressed:(){
                 Navigator.push(

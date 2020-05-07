@@ -1,4 +1,6 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:pametno_z_odpadki/Constants.dart';
 
 class Skeniraj extends StatefulWidget {
     const Skeniraj({
@@ -9,8 +11,74 @@ class Skeniraj extends StatefulWidget {
 }
 
 class _SkenirajState extends State<Skeniraj> {
+  String _scanBarcode = "Skeniraj izdelek in tu se bo prikazala koda!";
+  Constants constants = new Constants();
+
+  @override
+  void initState() { 
+    super.initState();
+  }
+
+  void main() async {
+  var result = await BarcodeScanner.scan();
+  setState(() {
+    _scanBarcode = result.rawContent;
+  });
+}
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("SKENIRAJ"),);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+      Text("Kam spada?",
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 36
+                            ),
+                        ),
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical:12.0),
+          child: 
+          Text("$_scanBarcode",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+            )
+          ),
+        ),
+      ),
+      Center(child:
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical:10.0),
+        child: ButtonTheme(
+          minWidth: constants.getButtonWidth(context),
+          height: constants.getButtonHeight(),
+          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
+          child: RaisedButton(
+          onPressed: () => main(),
+          child: Text("Skeniraj izdelek", style: TextStyle(color: Colors.white,
+                          fontSize: 18))),
+          ),
+        )
+      ),
+      Center(child:
+      ButtonTheme(
+        minWidth: constants.getButtonWidth(context),
+        height: constants.getButtonHeight(),
+        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
+        child: RaisedButton(
+        onPressed: () => print(_scanBarcode),
+          child: Text("Poišči ustrezen zabojnik!", style: TextStyle(color: Colors.white,
+                          fontSize: 18))),
+        )
+      )
+    ],);
   }
 }
