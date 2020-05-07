@@ -66,6 +66,7 @@ class HomePage extends StatelessWidget{
           ButtonTheme(
             minWidth: _buttonW,
             height: _buttonH,
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
             child: RaisedButton(
               onPressed: (){
                 Navigator.push(
@@ -87,6 +88,7 @@ class HomePage extends StatelessWidget{
           ButtonTheme(
             minWidth: _buttonW,
             height: _buttonH,
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
             child: RaisedButton(
               onPressed:(){
                 Navigator.push(
