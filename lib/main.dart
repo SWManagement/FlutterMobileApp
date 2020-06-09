@@ -5,11 +5,16 @@ import 'package:pametno_z_odpadki/Locevanje.dart';
 import 'package:pametno_z_odpadki/Navodila.dart';
 import 'package:pametno_z_odpadki/Rastlina.dart';
 import 'package:pametno_z_odpadki/TechnicalHelp.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
