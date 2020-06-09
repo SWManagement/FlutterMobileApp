@@ -11,7 +11,7 @@ class Skeniraj extends StatefulWidget {
 }
 
 class _SkenirajState extends State<Skeniraj> {
-  String _scanBarcode = "Skeniraj izdelek in tu se bo prikazala koda!";
+  String _scanBarcode = "Skeniraj izdeleke in jih pravilno ločuj!";
   Constants constants = new Constants();
 
   @override
