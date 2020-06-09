@@ -68,17 +68,6 @@ class _SkenirajState extends State<Skeniraj> {
           ),
         )
       ),
-      Center(child:
-      ButtonTheme(
-        minWidth: constants.getButtonWidth(context),
-        height: constants.getButtonHeight(),
-        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
-        child: RaisedButton(
-        onPressed: () => print(_scanBarcode),
-          child: Text("Poišči ustrezen zabojnik!", style: TextStyle(color: Colors.white,
-                          fontSize: 18))),
-        )
-      )
     ],);
   }
 }
