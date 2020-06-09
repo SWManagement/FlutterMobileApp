@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pametno_z_odpadki/AppInfo.dart';
-import 'package:pametno_z_odpadki/Constants.dart';
-import 'package:pametno_z_odpadki/IzbiraRegije.dart';
-import 'package:pametno_z_odpadki/Navodila.dart';
 import 'package:pametno_z_odpadki/Skeniraj.dart';
-import 'package:pametno_z_odpadki/TechnicalHelp.dart';
 import 'package:pametno_z_odpadki/Vpisi.dart';
 
 

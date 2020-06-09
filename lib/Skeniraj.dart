@@ -11,7 +11,7 @@ class Skeniraj extends StatefulWidget {
 }
 
 class _SkenirajState extends State<Skeniraj> {
-  String _scanBarcode = "Skeniraj izdeleke in jih pravilno ločuj!";
+  String _scanBarcode = "Skeniraj izdelke in jih pravilno ločuj!";
   Constants constants = new Constants();
 
   @override
@@ -19,12 +19,43 @@ class _SkenirajState extends State<Skeniraj> {
     super.initState();
   }
 
-  void main() async {
+  void scan(BuildContext context) async {
   var result = await BarcodeScanner.scan();
   setState(() {
-    _scanBarcode = result.rawContent;
+    _scanBarcode = "Nazadnje ste skenirali kodo " + result.rawContent;
   });
+  createResultDialog(context); 
 }
+
+  createResultDialog(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: Text("Vaš odpadek sodi v:",
+        textAlign: TextAlign.start,
+        textScaleFactor: 1.2,),
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            height:  MediaQuery.of(context).size.height * 0.4,
+            child: Image(image: AssetImage("assets/images/smetnjak_rumen.png"),),
+            padding: EdgeInsets.all(20.0),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Text("Embalažo",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0
+            ),),
+            color: Colors.yellow[300],
+            padding: EdgeInsets.all(20.0),
+            )
+        ],
+      );
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +93,7 @@ class _SkenirajState extends State<Skeniraj> {
           height: constants.getButtonHeight(),
           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
           child: RaisedButton(
-          onPressed: () => main(),
+          onPressed: () => scan(context),
           child: Text("Skeniraj izdelek", style: TextStyle(color: Colors.white,
                           fontSize: 18))),
           ),

@@ -9,7 +9,7 @@ class TechnicalHelp extends StatelessWidget {
       appBar: AppBar(title: Text("Tehnična pomoč"),
       ),
       body: Column(children: <Widget>[
-        Text("Tehnična pomoč")  // TODO -> navodila za uporabo
+        Text("Tehnična pomoč") 
       ],),
     );
 

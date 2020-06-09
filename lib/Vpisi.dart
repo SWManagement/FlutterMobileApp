@@ -21,6 +21,34 @@ class _VpisiState extends State<Vpisi> {
     _izbranaRegija = Constants.constRegija;
   }
 
+  createResultDialog(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return SimpleDialog(
+        title: Text("Vaš odpadek sodi v:",
+        textAlign: TextAlign.start,
+        textScaleFactor: 1.2,),
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            height:  MediaQuery.of(context).size.height * 0.4,
+            child: Image(image: AssetImage("assets/images/smetnjak_rumen.png"),),
+            padding: EdgeInsets.all(20.0),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Text("Embalažo",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0
+            ),),
+            color: Colors.yellow[300],
+            padding: EdgeInsets.all(20.0),
+            )
+        ],
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -64,9 +92,7 @@ class _VpisiState extends State<Vpisi> {
                               child: RaisedButton(
                               onPressed: (){
                               if(_formKey.currentState.validate()){
-                                Scaffold
-                                .of(context)
-                                .showSnackBar(SnackBar(content: Text("Iščem zabojnik!")));
+                                createResultDialog(context);
                               }
                             },
                               child: Text("Poišči ustrezen zabojnik!", style: TextStyle(color: Colors.white,
