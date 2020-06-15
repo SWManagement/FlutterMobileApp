@@ -1,4 +1,5 @@
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
 
@@ -13,10 +14,12 @@ class Skeniraj extends StatefulWidget {
 class _SkenirajState extends State<Skeniraj> {
   String _scanBarcode = "Skeniraj izdelke in jih pravilno ločuj!";
   Constants constants = new Constants();
+  String _izbranaRegija = "";
 
   @override
   void initState() { 
     super.initState();
+    _izbranaRegija = Constants.constRegija;
   }
 
   void scan(BuildContext context) async {
@@ -24,12 +27,61 @@ class _SkenirajState extends State<Skeniraj> {
   setState(() {
     _scanBarcode = "Nazadnje ste skenirali kodo " + result.rawContent;
   });
-  createResultDialog(context); 
+  createResultDialog(context, result.rawContent); 
 }
 
-  createResultDialog(BuildContext context){
-    return showDialog(context: context, builder: (context){
-      return SimpleDialog(
+  najdiOdpadek(String koda){
+    return Firestore.instance.collection("Odpadki")
+    .where("koda", isEqualTo: koda)
+    .getDocuments();
+  }
+
+  createResultDialog(BuildContext context, String koda){
+    var query = najdiOdpadek(koda);
+    String kanta;
+    String barva;
+    Color  color;
+    query.then((QuerySnapshot docs) {
+      if (docs.documents.isNotEmpty){
+        kanta = docs.documents[0].data["kanta"];
+        switch (kanta) {
+          case "embalaža":
+            barva = "yellow";
+            color = Colors.yellow[300];
+            break;
+          case "BIO odpadki":
+            barva = "brown";
+            color = Colors.brown[300];
+            break;
+          case "papir":
+            if (_izbranaRegija == "Osrednjeslovenska" || _izbranaRegija == "Gorenjska"){
+              barva = "blue";
+              color = Colors.blue[300];
+            }else{
+              barva = "red";
+              color = Colors.red[300];
+            }
+            break;
+          case "steklo":
+          if (_izbranaRegija == "Osrednjeslovenska"){
+            barva = "green";
+            color = Colors.green[300];
+          }else{
+            barva = "white";
+            color = Colors.white;
+          }
+          break;
+          case "ostali odpadki":
+            barva = "black";
+            color = Colors.grey[300];
+            break;
+          case "zbirni center":
+            barva = "zbirni";
+            color = Colors.lime[300];
+            break;
+        }// end switch
+        return showDialog(context: context, builder: (context){
+        return SimpleDialog(
         title: Text("Vaš odpadek sodi v:",
         textAlign: TextAlign.start,
         textScaleFactor: 1.2,),
@@ -37,22 +89,35 @@ class _SkenirajState extends State<Skeniraj> {
           Container(
             width: MediaQuery.of(context).size.width * 0.6,
             height:  MediaQuery.of(context).size.height * 0.4,
-            child: Image(image: AssetImage("assets/images/smetnjak_rumen.png"),),
+            child: Image(image: AssetImage("assets/images/$barva.png"),),
             padding: EdgeInsets.all(20.0),
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            child: Text("Embalažo",
+            child: Text(kanta.toUpperCase(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0
             ),),
-            color: Colors.yellow[300],
+            color: color,
             padding: EdgeInsets.all(20.0),
             )
         ],
       );
-    });
+      });
+      } else{
+          return showDialog(context: context, builder: (context){
+          return SimpleDialog(
+          title: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text("Odpadka žal ne poznam",
+            textAlign: TextAlign.start,
+            textScaleFactor: 1.2,),
+          )
+        );
+      });
+    }
+  });        
   }
 
 
