@@ -1,3 +1,5 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
 
@@ -12,18 +14,81 @@ class Vpisi extends StatefulWidget {
   _VpisiState createState() => _VpisiState();
 }
 
+
+
 class _VpisiState extends State<Vpisi> {
   Constants constants = new Constants();
   String _izbranaRegija = "";
+  final myController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     _izbranaRegija = Constants.constRegija;
   }
 
-  createResultDialog(BuildContext context){
-    return showDialog(context: context, builder: (context){
-      return SimpleDialog(
+    @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+
+  najdiOdpadek(String odpadek){
+    return Firestore.instance.collection("Odpadki")
+    .where("odpadek", isEqualTo: odpadek)
+    .getDocuments();
+  }
+
+  createResultDialog(BuildContext context, odpadek){
+    var query = najdiOdpadek(odpadek);
+    String kanta;
+    String barva;
+    Color  color;
+    query.then((QuerySnapshot docs) {
+      if (docs.documents.isNotEmpty){
+        kanta = docs.documents[0].data["kanta"];
+        
+        switch (kanta) {
+          case "embalaža":
+            barva = "yellow";
+            color = Colors.yellow[300];
+            break;
+          case "BIO odpadki":
+            barva = "brown";
+            color = Colors.brown[300];
+            break;
+          case "papir":
+            if (_izbranaRegija == "Osrednjeslovenska" || _izbranaRegija == "Gorenjska"){
+              barva = "blue";
+              color = Colors.blue[300];
+            }else{
+              barva = "red";
+              color = Colors.red[300];
+            }
+            break;
+          case "steklo":
+          if (_izbranaRegija == "Osrednjeslovenska"){
+            barva = "green";
+            color = Colors.green[300];
+          }else{
+            barva = "white";
+            color = Colors.white;
+          }
+          break;
+          case "ostali odpadki":
+            barva = "black";
+            color = Colors.grey[300];
+            break;
+          case "zbirni center":
+            barva = "zbirni";
+            color = Colors.lime[300];
+            break;
+        }
+
+        return showDialog(context: context, builder: (context){
+        return SimpleDialog(
         title: Text("Vaš odpadek sodi v:",
         textAlign: TextAlign.start,
         textScaleFactor: 1.2,),
@@ -31,23 +96,37 @@ class _VpisiState extends State<Vpisi> {
           Container(
             width: MediaQuery.of(context).size.width * 0.6,
             height:  MediaQuery.of(context).size.height * 0.4,
-            child: Image(image: AssetImage("assets/images/smetnjak_rumen.png"),),
+            child: Image(image: AssetImage("assets/images/$barva.png"),),
             padding: EdgeInsets.all(20.0),
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            child: Text("Embalažo",
+            child: Text(kanta.toUpperCase(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0
             ),),
-            color: Colors.yellow[300],
+            color: color,
             padding: EdgeInsets.all(20.0),
             )
         ],
       );
     });
+    } else{
+          return showDialog(context: context, builder: (context){
+          return SimpleDialog(
+          title: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text("Odpadka žal ne poznam",
+            textAlign: TextAlign.start,
+            textScaleFactor: 1.2,),
+          )
+        );
+      });
+    }
+  });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +152,7 @@ class _VpisiState extends State<Vpisi> {
                             child: new TextFormField(
                             cursorColor:Colors.lightGreen,
                             textAlign: TextAlign.center,
+                            controller: myController,
                             decoration: InputDecoration(hintText: "Vpiši ime izdelka ali odpadka."),
                             validator: (value){
                               if (value.isEmpty){
@@ -92,10 +172,10 @@ class _VpisiState extends State<Vpisi> {
                               child: RaisedButton(
                               onPressed: (){
                               if(_formKey.currentState.validate()){
-                                createResultDialog(context);
+                                createResultDialog(context, myController.text.toLowerCase().trim());
                               }
                             },
-                              child: Text("Poišči ustrezen zabojnik!", style: TextStyle(color: Colors.white,
+                              child: Text("Pokaži ustrezen zabojnik!", style: TextStyle(color: Colors.white,
                               fontSize: 18),),
                               ),
                           ),

@@ -1,4 +1,4 @@
-package com.example.pametno_z_odpadki
+package com.example.pametnozodpadki
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

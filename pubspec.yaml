@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  cloud_firestore:
+    
   flutter:
     sdk: flutter
 
@@ -49,8 +51,15 @@ flutter:
     - assets/images/roza02.png
     - assets/images/roza03.png
     - assets/images/roza04.png
-    - assets/images/smetnjak_rumen.png
-    - assets/images/smetnjak_rdec.png
+    - assets/images/red.png
+    - assets/images/blue.png
+    - assets/images/red.png
+    - assets/images/green.png
+    - assets/images/black.png
+    - assets/images/brown.png
+    - assets/images/yellow.png
+    - assets/images/white.png
+    - assets/images/zbirni.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

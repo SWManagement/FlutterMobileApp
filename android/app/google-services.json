@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "319479626822",
+    "firebase_url": "https://pametnozodpadki-1bac0.firebaseio.com",
+    "project_id": "pametnozodpadki-1bac0",
+    "storage_bucket": "pametnozodpadki-1bac0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319479626822:android:f18c5a1c03499e4fcb5e47",
+        "android_client_info": {
+          "package_name": "com.example.pametnozodpadki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319479626822-o6clbhis69vmm1evsqth7clcvl8qs7pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeGR_CBfGvpki4HPUCnOTcBvlvioymY3c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319479626822-o6clbhis69vmm1evsqth7clcvl8qs7pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
