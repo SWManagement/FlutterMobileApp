@@ -44,7 +44,6 @@ class _izbiraRegijeState extends State<izbiraRegije> {
    });
   }
 
-  // TODO -> da se označi gumbek
   @override
   Widget build(BuildContext context) {
     return Scaffold(

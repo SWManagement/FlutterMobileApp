@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pametno_z_odpadki/Navodila.dart';
 
 class Constants{
   // Nastavitve

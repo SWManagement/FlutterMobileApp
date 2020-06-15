@@ -2,8 +2,6 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
-import 'package:pametno_z_odpadki/Rastlina.dart';
-import 'package:pametno_z_odpadki/Vpisi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Skeniraj extends StatefulWidget {
