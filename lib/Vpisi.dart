@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pametno_z_odpadki/Constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -14,7 +15,11 @@ class Vpisi extends StatefulWidget {
   _VpisiState createState() => _VpisiState();
 }
 
-
+  addPoint() async{
+    final prefs = await SharedPreferences.getInstance();
+    final newCounter = (prefs.getInt("counter") ?? 0) + 1;
+    prefs.setInt("counter", newCounter);
+  }
 
 class _VpisiState extends State<Vpisi> {
   Constants constants = new Constants();
@@ -87,6 +92,8 @@ class _VpisiState extends State<Vpisi> {
             break;
         }
 
+        addPoint();
+        
         return showDialog(context: context, builder: (context){
         return SimpleDialog(
         title: Text("Vaš odpadek sodi v:",

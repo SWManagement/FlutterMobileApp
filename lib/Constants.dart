@@ -16,6 +16,9 @@ class Constants{
   // Izbrana regija
   static String constRegija = regije[0];
 
+  // tocke rastlina
+  static int tocke = 0;
+
   // Button W & H
 
   double getButtonWidth(context){

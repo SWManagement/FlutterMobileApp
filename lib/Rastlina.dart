@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Rastlina extends StatefulWidget {
   Rastlina({Key key}) : super(key: key);
@@ -12,10 +13,34 @@ class _RastlinaState extends State<Rastlina> {
 
   int _userPoints;
 
+  getUserPoints() async{
+    final prefs = await SharedPreferences.getInstance();
+    final newCounter = prefs.getInt("counter") ?? 0;
+    setState(() {
+      _userPoints = newCounter;
+    });
+  }
+
+  // Future<String> getStopnja() async{
+  //   String result;
+  //     if (_userPoints < 3){
+  //       result = "01.png";
+  //     } else if(_userPoints >= 3 && _userPoints < 7){
+  //       result = "02.png";
+  //     } else if(_userPoints >= 7 && _userPoints < 15){
+  //       result = "03.png";
+  //     } else {
+  //       result = "04.png";
+  //     }
+  //     return PATHTOROZA + result;
+  // }
+
+
   void initState() { 
     super.initState();
-    _userPoints = 0;
+    getUserPoints();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +53,7 @@ class _RastlinaState extends State<Rastlina> {
               child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     height:  MediaQuery.of(context).size.height * 0.4,
-                    child: Image.asset("assets/images/roza04.png"),
+                    child: Image.asset("assets/images/roza01.png"),
                     ),
             ),
             Padding(

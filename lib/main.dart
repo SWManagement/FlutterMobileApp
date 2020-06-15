@@ -109,7 +109,6 @@ class _TabViewControllerState extends State<TabViewController> with TickerProvid
       controller: _tabController,
       tabs: myTopTabs,
       onTap: (idx){
-        print(idx);
         onTabTapped(idx);
         }
       )
